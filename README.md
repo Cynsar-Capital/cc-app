@@ -13,7 +13,23 @@ A lot of PE world is still breathing in the excel's and outdated system. We wish
 5. Security as a feature.
 6. Focus on UI and UX
 
+## Setting up
 
+```
+pnpm i
+```
+
+### Start postgres
+
+```
+docker compose up -d
+```
+
+### Run
+
+```
+pnpm dev
+```
 
 ## Forked From
 <a href="https://app.vercel.pub">
