@@ -1,3 +1,21 @@
+## Cynsar Capital Fund Management Application
+
+Open source first of its kind application , lets you manage startup equity, syndicate funds management, VC and Angel Dashboard.
+
+## Problem
+
+A lot of PE world is still breathing in the excel's and outdated system. We wish to bring a change.
+
+1. Start from the ground up,
+2. Digitise the workflows and behind the scenes compliances.
+3. Business can manage regulatory and non regulatory asepcts of the business.
+4. Framework approach towards managing funds
+5. Security as a feature.
+6. Focus on UI and UX
+
+
+
+## Forked From
 <a href="https://app.vercel.pub">
   <img alt="Platforms Starter Kit" src="/public/thumbnail.png">
   <h1 align="center">Platforms Starter Kit</h1>

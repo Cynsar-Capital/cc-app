@@ -79,12 +79,12 @@ export default function Nav({ children }: { children: ReactNode }) {
     if (segments[0] === "site" && id) {
       return [
         {
-          name: "Back to All Sites",
+          name: "Back to All Workplaces",
           href: "/sites",
           icon: <ArrowLeft width={18} />,
         },
         {
-          name: "Posts",
+          name: "Company",
           href: `/site/${id}`,
           isActive: segments.length === 2,
           icon: <Newspaper width={18} />,

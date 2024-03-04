@@ -45,7 +45,7 @@ export default async function Posts({
         height={400}
       />
       <p className="text-lg text-stone-500">
-        You do not have any posts yet. Create one to get started.
+        You do not have any activity yet. Create one to get started.
       </p>
     </div>
   );

@@ -3,7 +3,9 @@
  */
 module.exports = {
   experimental: {
-    serverActions: true,
+    serverActions: {
+      allowedOrigins: ["app.localhost:3000"],
+    },
   },
   images: {
     domains: [

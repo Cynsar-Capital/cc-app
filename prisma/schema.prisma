@@ -26,6 +26,8 @@ model User {
   sessions      Session[]
   sites         Site[]
   posts         Post[]
+  companies     Company[]
+  role          Role
 }
 
 model Account {
@@ -118,4 +120,64 @@ model Example {
   url           String?
   image         String? @db.Text
   imageBlurhash String? @db.Text
+}
+
+model Company {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?       @db.Text
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  capTables    CapTable[]
+  angelRollUps AngelRollUp[]
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String?
+  investors    Investor[]
+}
+
+model CapTable {
+  id        String   @id @default(cuid())
+  companyId String
+  details   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+}
+
+model AngelRollUp {
+  id          String     @id @default(cuid())
+  companyId   String
+  description String     @db.Text
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  company     Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  investors   Investor[]
+}
+
+model Investor {
+  id            String              @id @default(cuid())
+  name          String
+  email         String?             @unique
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  syndicates    InvestorSyndicate[]
+  angelRollUp   AngelRollUp?        @relation(fields: [angelRollUpId], references: [id], onDelete: Cascade)
+  angelRollUpId String?
+  Company       Company?            @relation(fields: [companyId], references: [id])
+  companyId     String?
+}
+
+model InvestorSyndicate {
+  id          String     @id @default(cuid())
+  name        String
+  description String     @db.Text
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  investors   Investor[]
+}
+
+enum Role {
+  Business
+  Investor
+  Indecisive
 }

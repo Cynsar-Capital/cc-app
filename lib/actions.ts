@@ -21,6 +21,7 @@ const nanoid = customAlphabet(
   7,
 ); // 7-character random string
 
+
 export const createSite = async (formData: FormData) => {
   const session = await getSession();
   if (!session?.user.id) {
@@ -431,3 +432,72 @@ export const editUser = async (
     }
   }
 };
+
+
+export async function updateUser(data: any){
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
+  // Assuming `isNewUser` is a flag in your session to indicate a new user
+  if (!session.user.email) {
+    try {
+      const updatedUser = await prisma.user.update({
+        where: { id: session.user.id }, // Assuming you store the user ID in the session
+        data: {
+          ...data, // The data to update, e.g., email, username
+        },
+      });
+      return updatedUser;
+    } catch (error) {
+      console.error('Failed to update user:', error);
+      throw new Error('Failed to update user');
+    }
+  } else {
+    throw new Error('User is not a new user or already has an email');
+  }
+}
+
+
+export async function updateUserEmailVerified(email: any) {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { email: email },
+      data: {
+        emailVerified: new Date(), // This sets the current timestamp
+      },
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.error('Error updating user email verification:', error);
+    throw new Error('Failed to update user email verification');
+  }
+}
+
+export async function sendEmail(email: any) {
+  const url = `${process.env.NEXTAUTH_URL}/api/signup`;
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email}),
+    });
+    if (response.status == 200) {
+      // we are good to go 
+      return true
+    }
+    if (response.status == 500){
+      // we are not good to go
+      return false
+    }
+  }catch (error){
+    console.error('Error sending user email verification:', error);
+    throw new Error('Failed to update user email verification');
+  }
+  
+}

@@ -37,31 +37,31 @@ export default function CreateSiteModal() {
           if (res.error) {
             toast.error(res.error);
           } else {
-            va.track("Created Site");
+            va.track("Created Workplace");
             const { id } = res;
             router.refresh();
             router.push(`/site/${id}`);
             modal?.hide();
-            toast.success(`Successfully created site!`);
+            toast.success(`Successfully created workplace!`);
           }
         })
       }
       className="w-full rounded-md bg-white dark:bg-black md:max-w-md md:border md:border-stone-200 md:shadow dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">
-        <h2 className="font-cal text-2xl dark:text-white">Create a new site</h2>
+        <h2 className="font-cal text-2xl dark:text-white">Create a new workplace</h2>
 
         <div className="flex flex-col space-y-2">
           <label
             htmlFor="name"
             className="text-sm font-medium text-stone-500 dark:text-stone-400"
           >
-            Site Name
+            Business Name
           </label>
           <input
             name="name"
             type="text"
-            placeholder="My Awesome Site"
+            placeholder="My Awesome Fund/Company"
             autoFocus
             value={data.name}
             onChange={(e) => setData({ ...data, name: e.target.value })}
@@ -106,7 +106,7 @@ export default function CreateSiteModal() {
           </label>
           <textarea
             name="description"
-            placeholder="Description about why my site is so awesome"
+            placeholder="Description about why your fund is so awesome"
             value={data.description}
             onChange={(e) => setData({ ...data, description: e.target.value })}
             maxLength={140}
@@ -133,7 +133,7 @@ function CreateSiteFormButton() {
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Create Site</p>}
+      {pending ? <LoadingDots color="#808080" /> : <p>Lets do it</p>}
     </button>
   );
 }

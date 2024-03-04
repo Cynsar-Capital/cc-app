@@ -1,8 +1,11 @@
+"use client"
 import Image from "next/image";
 import LoginButton from "./login-button";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
+import EmailInput from "@/components/form/emailInput";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
   return (
     <div className="mx-5 border border-stone-200 py-10 dark:border-stone-700 sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg sm:shadow-md">
       <Image
@@ -13,10 +16,10 @@ export default function LoginPage() {
         src="/logo.png"
       />
       <h1 className="mt-6 text-center font-cal text-3xl dark:text-white">
-        Platforms Starter Kit
+        CC Platform
       </h1>
       <p className="mt-2 text-center text-sm text-stone-600 dark:text-stone-400">
-        Build multi-tenant applications with custom domains. <br />
+        Manage your fund and business from single place. <br />
         <a
           className="font-medium text-black hover:text-stone-800 dark:text-stone-300 dark:hover:text-stone-100"
           href="https://vercel.com/blog/platforms-starter-kit"
@@ -32,8 +35,9 @@ export default function LoginPage() {
           fallback={
             <div className="my-2 h-10 w-full rounded-md border border-stone-200 bg-stone-100 dark:border-stone-700 dark:bg-stone-800" />
           }
-        >
-          <LoginButton />
+        > 
+        <EmailInput email={email} setEmail={setEmail}/>
+        <LoginButton email={email}/>
         </Suspense>
       </div>
     </div>

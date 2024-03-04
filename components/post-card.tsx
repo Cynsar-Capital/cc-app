@@ -1,8 +1,13 @@
+"use client"
 import BlurImage from "@/components/blur-image";
 import { placeholderBlurhash, random } from "@/lib/utils";
 import { Post, Site } from "@prisma/client";
-import { BarChart, ExternalLink } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { Suspense, useState } from "react";
+const DropdownMenu = dynamic(() => import('./dropdown'), {
+  suspense: true,
+});
 
 export default function PostCard({
   data,
@@ -10,6 +15,18 @@ export default function PostCard({
   data: Post & { site: Site | null };
 }) {
   const url = `${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${data.slug}`;
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const handleMenuSelect = (option: string) => {
+    console.log(`Selected Option in PostCard: ${option}`);
+    // Implement your redirection logic here based on the option
+    // For example, redirect to a different component or page
+    if (option == 'Add Details'){
+      
+    }
+};
 
   return (
     <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
@@ -55,6 +72,11 @@ export default function PostCard({
         >
           {url} ↗
         </a>
+        <Suspense fallback={<div>Loading...</div>}>
+                <DropdownMenu isDropdownOpen={isDropdownOpen} 
+                toggleDropdown={toggleDropdown} 
+                onMenuSelect={handleMenuSelect} data={data.siteId} />
+            </Suspense>
       </div>
     </div>
   );
